@@ -1,226 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset=utf-8 />
 
-    <title>Everlasting Harmless Eland</title>
-    <meta property="og:title" content="Everlasting Harmless Eland" />
+<head>
+  <meta charset=utf-8 />
 
-    <style data-tag="reset-style-sheet">
-      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
-    </style>
-    <style data-tag="default-style-sheet">
-      html {
-        font-family: Inter;
-        font-size: 16px;
-      }
+  <title>Shamba Smart</title>
+  <meta property="og:title" content="Everlasting Harmless Eland" />
 
-      body {
-        font-weight: 400;
-        font-style:normal;
-        text-decoration: none;
-        text-transform: none;
-        letter-spacing: normal;
-        line-height: 1.15;
-        color: var(--dl-color-gray-black);
-        background-color: var(--dl-color-gray-white);
+  <style data-tag="reset-style-sheet">
+    html {
+      line-height: 1.15;
+    }
 
-      }
-    </style>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-      data-tag="font"
-    />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <div>
-      <link href="./home.css" rel="stylesheet" />
+    body {
+      margin: 0;
+    }
 
-      <div class="home-container">
-        <div class="home-container1"></div>
-        <label class="home-text">Enter The Number Of Acres :</label>
-       
-        <input
-          type="text"
-          placeholder="acres"
-          class="home-textinput1 input"
-        />
+    * {
+      box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+    }
 
-        <style>
-          #floating-panel {
-  
-              margin: 1em;
-          }
+    p,
+    li,
+    ul,
+    pre,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      background-color: transparent;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    button,
+    select {
+      text-transform: none;
+    }
+
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+      -webkit-appearance: button;
+    }
+
+    button::-moz-focus-inner,
+    [type="button"]::-moz-focus-inner,
+    [type="reset"]::-moz-focus-inner,
+    [type="submit"]::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    button:-moz-focus,
+    [type="button"]:-moz-focus,
+    [type="reset"]:-moz-focus,
+    [type="submit"]:-moz-focus {
+      outline: 1px dotted ButtonText;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    input {
+      padding: 2px 4px;
+    }
+
+    img {
+      display: block;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+  </style>
+  <style data-tag="default-style-sheet">
+    html {
+      font-family: Inter;
+      font-size: 16px;
+    }
+
+    body {
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: normal;
+      line-height: 1.15;
+      color: var(--dl-color-gray-black);
+      background-color: var(--dl-color-gray-white);
+
+    }
+  </style>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    data-tag="font" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div>
+    <link href="./home.css" rel="stylesheet" />
+
+    <div class="home-container">
+      <div class="home-container1"></div>
+      <label class="home-text">Enter The Number Of Acres :</label>
+
+      <input type="text" placeholder="acres" class="home-textinput1 input" />
+
+      <style>
+        #floating-panel {
+
+          margin: 1em;
+        }
       </style>
-  
-  
-      <div id="floating-panel">Coordinates:
-          <label id="latitude"></label><br>
-          <label id="longitude"></label>
-      </div>
-      <div id="map" style="width:500px; height:500px"></div>
-      <script>
-  
-          var map;
-          var lat;
-          var long;
-          var markers = [];
-  
-          function initMap() {
-              var center = { lat: -1.309383, lng: 36.812303 };
-  
-              map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 15,
-                  center: center,
-                  mapTypeId: 'terrain'
-              });
-  
-              // This event listener will call addMarker() when the map is clicked.
-              map.addListener('click', function (event) {
-                  clearMarkers();
-                  addMarker(event.latLng);
-                  document.getElementById("latitude").innerHTML = event.latLng.lat();
-                  document.getElementById("longitude").innerHTML = event.latLng.lng();
-                  lat = event.latLng.lat();
-                  long = event.latLng.lng();
-                  localStorage.setItem("lat", lat);
-                  localStorage.setItem("long", long);
-              });
-  
-  
-          }
-  
-          // Adds a marker to the map and push to the array.
-          function addMarker(location) {
-              var marker = new google.maps.Marker({
-                  position: location,
-                  map: map
-              });
-              markers.push(marker);
-          }
-  
-          // Sets the map on all markers in the array.
-          function setMapOnAll(map) {
-              for (var i = 0; i < markers.length; i++) {
-                  markers[i].setMap(map);
-              }
-          }
-  
-          // Removes the markers from the map, but keeps them in the array.
-          function clearMarkers() {
-              setMapOnAll(null);
-          }
-  
-          function SoilData(bdod, nitrogen, ocd, ph, soc) {
-              this.bdod = bdod;
-              this.nitrogen = nitrogen;
-              this.ocd = ocd;
-              this.ph = ph;
-              this.soc = soc;
-          }
-  
-          function WeatherData(wind_speed, humidity, temp, dew_point, rainfall) {
-              this.wind_speed = wind_speed;
-              this.humidity = humidity;
-              this.temp = temp;
-              this.dew_point = dew_point;
-              this.rainfall = rainfall;
-          }
-  
-          //Process soil data from coordinates
-          async function getSoilData() {
-              let lat = localStorage.getItem("lat");
-              let long = localStorage.getItem("long");
-              const soil_url = "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=" + long + "&lat=" + lat;
-              console.log(soil_url);
-              const soilData = new SoilData();
-              const response = await fetch(soil_url);
-              const data = await response.json();
-              const layers = data.properties.layers;
-              for (let i = 0; i < layers.length; i++) {
-                  if (layers[i].name == "bdod") {
-                      soilData.bdod = layers[i].depths[2].values.mean;
-                  }
-                  else if (layers[i].name == "nitrogen") {
-                      soilData.nitrogen = layers[i].depths[2].values.mean;
-                  }
-                  else if (layers[i].name == "ocd") {
-                      soilData.ocd = layers[i].depths[2].values.mean;
-                  }
-                  else if (layers[i].name == "phh2o") {
-                      soilData.ph = layers[i].depths[2].values.mean;
-                      localStorage.setItem("ph", layers[i].depths[2].values.mean)
-                  }
-                  else if (layers[i].name == "soc") {
-                      soilData.soc = layers[i].depths[2].values.mean;
-                  }
-                  else {
-                      continue;
-                  }
-              }
-              console.log(soilData);
-          }
-  
-          async function getWeatherData() {
-              let lat = localStorage.getItem("lat");
-              let long = localStorage.getItem("long");
-              console.log(lat);
-              const weather_url = "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=" + lat + "&lon=" + long + "&dt=1632276077&appid=d90ae287b66f40e2f146f51defdfbaaf";
-              console.log(weather_url);
-              const weatherData = new WeatherData();
-              const response = fetch(weather_url);
-              // const data = await response.json();
-              response.then((response) => {
-                  const data = response.json();
-                  data.then((gotData) => {
-                      localStorage.setItem("humidity", gotData.data[0].humidity);
-                      localStorage.setItem("temp", gotData.data[0].temp);
-                      if (gotData.data[0].clouds >= 80) {
-                          weatherData.rainfall = "very high";
-                      } else if (gotData.data[0].clouds >= 50) {
-                          weatherData.rainfall = "high";
-                      }
-                      else if (gotData.data[0].clouds >= 40) {
-                          weatherData.rainfall = "medium";
-                      }
-                      else if (gotData.data[0].clouds >= 30) {
-                          weatherData.rainfall = "lower medium";
-                      }
-                      else if (dgotData.data[0].clouds >= 20) {
-                          weatherData.rainfall = "low";
-                      } else {
-                          weatherData.rainfall = "extremely low";
-                      }
-                      localStorage.setItem("rainfall", weatherData.rainfall);
-                  })
-              })
-          }
-  
-          function getElevation() {
-              window.location.href = "https://maps.googleapis.com/maps/api/elevation/json?locations=" + lat + "%2C" + long + "&key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I";
-  
-          }
-  
-          function getReport() {
-              
-          }
-      </script>
 
-        <button onclick="getElevation()">Get elevation</button><br>
-        <button onclick="getReport()">Get Report</button>
-    
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I&callback=initMap&v=weekly"
-            defer></script>
-        <button class="home-button button">Submit</button>
-        <img
-          alt="image"
-          src="public/playground_assets/screenshot%202022-10-21%20at%2020.24.03-200h.png"
-          class="home-image"
-        />
-      </div>
     </div>
-  </body>
+    <div id="floating-panel">Coordinates:
+      <label id="latitude"></label><br>
+      <label id="longitude"></label>
+    </div>
+    <div id="map" style="margin: 1em; width:500px; height:500px"></div>
+    <script>
+
+      var map;
+      var lat;
+      var long;
+      var markers = [];
+
+      function initMap() {
+        var center = { lat: -1.309383, lng: 36.812303 };
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: center,
+          mapTypeId: 'terrain'
+        });
+
+        // This event listener will call addMarker() when the map is clicked.
+        map.addListener('click', function (event) {
+          clearMarkers();
+          addMarker(event.latLng);
+          document.getElementById("latitude").innerHTML = event.latLng.lat();
+          document.getElementById("longitude").innerHTML = event.latLng.lng();
+          lat = event.latLng.lat();
+          long = event.latLng.lng();
+          localStorage.setItem("lat", lat);
+          localStorage.setItem("long", long);
+        });
+
+
+      }
+
+      // Adds a marker to the map and push to the array.
+      function addMarker(location) {
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markers.push(marker);
+      }
+
+      // Sets the map on all markers in the array.
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+      // Removes the markers from the map, but keeps them in the array.
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+
+      function SoilData(bdod, nitrogen, ocd, ph, soc) {
+        this.bdod = bdod;
+        this.nitrogen = nitrogen;
+        this.ocd = ocd;
+        this.ph = ph;
+        this.soc = soc;
+      }
+
+      function WeatherData(wind_speed, humidity, temp, dew_point, rainfall) {
+        this.wind_speed = wind_speed;
+        this.humidity = humidity;
+        this.temp = temp;
+        this.dew_point = dew_point;
+        this.rainfall = rainfall;
+      }
+
+      //Process soil data from coordinates
+      async function getSoilData() {
+        let lat = localStorage.getItem("lat");
+        let long = localStorage.getItem("long");
+        const soil_url = "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=" + long + "&lat=" + lat;
+        console.log(soil_url);
+        const soilData = new SoilData();
+        const response = await fetch(soil_url);
+        const data = await response.json();
+        const layers = data.properties.layers;
+        for (let i = 0; i < layers.length; i++) {
+          if (layers[i].name == "bdod") {
+            soilData.bdod = layers[i].depths[2].values.mean;
+          }
+          else if (layers[i].name == "nitrogen") {
+            soilData.nitrogen = layers[i].depths[2].values.mean;
+          }
+          else if (layers[i].name == "ocd") {
+            soilData.ocd = layers[i].depths[2].values.mean;
+          }
+          else if (layers[i].name == "phh2o") {
+            soilData.ph = layers[i].depths[2].values.mean;
+            localStorage.setItem("ph", layers[i].depths[2].values.mean)
+          }
+          else if (layers[i].name == "soc") {
+            soilData.soc = layers[i].depths[2].values.mean;
+          }
+          else {
+            continue;
+          }
+        }
+        console.log(soilData);
+      }
+
+      async function getWeatherData() {
+        let lat = localStorage.getItem("lat");
+        let long = localStorage.getItem("long");
+        console.log(lat);
+        const weather_url = "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=" + lat + "&lon=" + long + "&dt=1632276077&appid=d90ae287b66f40e2f146f51defdfbaaf";
+        console.log(weather_url);
+        const weatherData = new WeatherData();
+        const response = fetch(weather_url);
+        // const data = await response.json();
+        response.then((response) => {
+          const data = response.json();
+          data.then((gotData) => {
+            localStorage.setItem("humidity", gotData.data[0].humidity);
+            localStorage.setItem("temp", gotData.data[0].temp);
+            if (gotData.data[0].clouds >= 80) {
+              weatherData.rainfall = "very high";
+            } else if (gotData.data[0].clouds >= 50) {
+              weatherData.rainfall = "high";
+            }
+            else if (gotData.data[0].clouds >= 40) {
+              weatherData.rainfall = "medium";
+            }
+            else if (gotData.data[0].clouds >= 30) {
+              weatherData.rainfall = "lower medium";
+            }
+            else if (dgotData.data[0].clouds >= 20) {
+              weatherData.rainfall = "low";
+            } else {
+              weatherData.rainfall = "extremely low";
+            }
+            localStorage.setItem("rainfall", weatherData.rainfall);
+          })
+        })
+      }
+
+      function getElevation() {
+        window.location.href = "https://maps.googleapis.com/maps/api/elevation/json?locations=" + lat + "%2C" + long + "&key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I";
+
+      }
+
+      function getReport() {
+
+      }
+    </script>
+
+    <button onclick="getElevation()">Get elevation</button><br>
+    <button onclick="getReport()">Get Report</button>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I&callback=initMap&v=weekly"
+      defer></script>
+
+    <div style="margin: 1em;">
+      <img alt="image" src="public/playground_assets/screenshot%202022-10-21%20at%2020.24.03-200h.png"
+        class="home-image" /> <button class="home-button button">Submit</button>
+
+    </div>
+
+
+  </div>
+</body>
+
 </html>
