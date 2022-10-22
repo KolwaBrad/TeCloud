@@ -19,8 +19,8 @@
   background-color: #080808;
 }
 .home-text {
-  top: 552px;
-  left: 349px;
+  top: 400px;
+  left: 120px;
   position: absolute;
 }
 .home-text1 {
@@ -35,7 +35,7 @@
 }
 .home-textinput1 {
   top: 428px;
-  left: 577px;
+  left: 300px;
   position: absolute;
 }
 .home-button {
@@ -45,7 +45,7 @@
 }
 .home-image {
   top: 50px;
-  left: 300px;
+  left: 600px;
   width: 326px;
   height: 155px;
   position: absolute;
