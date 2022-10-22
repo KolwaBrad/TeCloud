@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <style>
+        #floating-panel {
+
+            margin: 1em;
+        }
+    </style>
+
+
+    <div id="floating-panel">Coordinates:
+        <label id="latitude"></label><br>
+        <label id="longitude"></label>
+    </div>
+    <div id="map" style="width:500px; height:500px"></div>
+    <script>
+
+        var map;
+        var lat;
+        var long;
+        var markers = [];
+
+        function initMap() {
+            var center = { lat: -1.309383, lng: 36.812303 };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: center,
+                mapTypeId: 'terrain'
+            });
+
+            // This event listener will call addMarker() when the map is clicked.
+            map.addListener('click', function (event) {
+                clearMarkers();
+                addMarker(event.latLng);
+                document.getElementById("latitude").innerHTML = event.latLng.lat();
+                document.getElementById("longitude").innerHTML = event.latLng.lng();
+                lat = event.latLng.lat();
+                long = event.latLng.lng();
+
+            });
+
+
+        }
+
+        // Adds a marker to the map and push to the array.
+        function addMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+            markers.push(marker);
+        }
+
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+
+    </script>
+    <button onclick="getElevation()">Get elevation</button>
+    <script>
+        function getElevation() {
+            window.location.href = "https://maps.googleapis.com/maps/api/elevation/json?locations="+lat+"%2C"+long+"&key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I";
+
+        }
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I&callback=initMap&v=weekly"
+        defer></script>
+    <!-- <p><input class="postcode" id="Postcode" name="Postcode" type="text" value="New York, NY">
+        <input type="submit" id="findbutton" value="Find" />
+    </p> -->
+</body>
+
+</html>
