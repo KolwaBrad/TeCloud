@@ -46,7 +46,8 @@
                 document.getElementById("longitude").innerHTML = event.latLng.lng();
                 lat = event.latLng.lat();
                 long = event.latLng.lng();
-
+                localStorage.setItem("lat", lat);
+                localStorage.setItem("long", long);
             });
 
 
@@ -73,13 +74,6 @@
             setMapOnAll(null);
         }
 
-    </script>
-    <button onclick="getElevation()">Get elevation</button>
-    <script>
-
-        const soil_url = "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=" + long + "&lat=" + lat;
-        const weather_url = "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=" + lat + "&lon=" + long + "&dt=1632276077&appid=d90ae287b66f40e2f146f51defdfbaaf"
-
         function SoilData(bdod, nitrogen, ocd, ph, soc) {
             this.bdod = bdod;
             this.nitrogen = nitrogen;
@@ -98,6 +92,10 @@
 
         //Process soil data from coordinates
         async function getSoilData() {
+            let lat = localStorage.getItem("lat");
+            let long = localStorage.getItem("long");
+            const soil_url = "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=" + long + "&lat=" + lat;
+            console.log(soil_url);
             const soilData = new SoilData();
             const response = await fetch(soil_url);
             const data = await response.json();
@@ -114,6 +112,7 @@
                 }
                 else if (layers[i].name == "phh2o") {
                     soilData.ph = layers[i].depths[2].values.mean;
+                    localStorage.setItem("ph", layers[i].depths[2].values.mean)
                 }
                 else if (layers[i].name == "soc") {
                     soilData.soc = layers[i].depths[2].values.mean;
@@ -126,45 +125,51 @@
         }
 
         async function getWeatherData() {
+            let lat = localStorage.getItem("lat");
+            let long = localStorage.getItem("long");
+            console.log(lat);
+            const weather_url = "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=" + lat + "&lon=" + long + "&dt=1632276077&appid=d90ae287b66f40e2f146f51defdfbaaf";
+            console.log(weather_url);
             const weatherData = new WeatherData();
-            const response = await fetch(weather_url);
-            const data = await response.json();
-            const layers = data.data;
-            weatherData.wind_speed = data.wind_speed;
-            weatherData.humidity = data.humidity;
-            weatherData.temp = data.temp;
-            weatherData.dew_point = data.dew_point / 10;
-            if (data.clouds >= 80) {
-                weatherData.rainfall = "very high";
-            } else if (data.clouds >= 50) {
-                weatherData.rainfall = "high";
-            }
-            else if (data.clouds >= 40) {
-                weatherData.rainfall = "medium";
-            }
-            else if (data.clouds >= 30) {
-                weatherData.rainfall = "lower medium";
-            }
-            else if (data.clouds >= 20) {
-                weatherData.rainfall = "low";
-            } else {
-                weatherData.rainfall = "extremely low";
-            }
-            console.log(weatherData);
+            const response = fetch(weather_url);
+            // const data = await response.json();
+            response.then((response) => {
+                const data = response.json();
+                data.then((gotData) => {
+                    localStorage.setItem("humidity", gotData.data[0].humidity);
+                    localStorage.setItem("temp", gotData.data[0].temp);
+                    if (gotData.data[0].clouds >= 80) {
+                        weatherData.rainfall = "very high";
+                    } else if (gotData.data[0].clouds >= 50) {
+                        weatherData.rainfall = "high";
+                    }
+                    else if (gotData.data[0].clouds >= 40) {
+                        weatherData.rainfall = "medium";
+                    }
+                    else if (gotData.data[0].clouds >= 30) {
+                        weatherData.rainfall = "lower medium";
+                    }
+                    else if (dgotData.data[0].clouds >= 20) {
+                        weatherData.rainfall = "low";
+                    } else {
+                        weatherData.rainfall = "extremely low";
+                    }
+                    localStorage.setItem("rainfall", weatherData.rainfall);
+                })
+            })
         }
 
-        const forecast_url = "";
-
-        getSoilData();
-        getWeatherData();
-
-
-        const ambee_url = "";
         function getElevation() {
             window.location.href = "https://maps.googleapis.com/maps/api/elevation/json?locations=" + lat + "%2C" + long + "&key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I";
 
         }
+
+        function getReport() {
+            
+        }
     </script>
+    <button onclick="getElevation()">Get elevation</button><br>
+    <button onclick="getReport()">Get Report</button>
 
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0hE8rY3XGYG6AoGwc_u_Q0mb9LnVOC-I&callback=initMap&v=weekly"
